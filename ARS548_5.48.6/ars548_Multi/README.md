@@ -12,21 +12,35 @@
 
 # **命令：**
 ```
+# 删除build
 rm build/ devel/ -fr
 ```
+```
+# 编译msg
 catkin_make --pkg ars548_msg
 ```
+```
+# 编译工程
 catkin_make -j8
 ```
 ```
+# 加载环境
 source devel/setup.bash
 ```
+```
+# 启动launch
 roslaunch ars548_process ars548_process.launch
 ```
+```
+# 记录所有话题
 rosbag record -a
 ```
+```
+# 播放记录的rosbag
 rosbag play xxx.bag -r 10
 ```
+```
+# 显示记录的rosbag的topic
 rostopic echo -b xxx.bag -p /xxx >xxx.cxv
 ```
 -----------------------------

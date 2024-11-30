@@ -3,10 +3,14 @@
 2. 软件使用时，要关掉防火墙。
 3. 
 //前视雷达10.13.1.112 为 1879117066
+
 //侧视雷达10.13.1.113 为 1895894282
+
 int Radar_Front = 1879117066;
+
 int Radar_Side  = 1895894282;
-4. turn off wifi
+
+5. turn off wifi
 
 
 rm build/ devel/ -fr

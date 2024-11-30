@@ -13,20 +13,20 @@
 # **命令：**
 ```
 rm build/ devel/ -fr
-
+```
 catkin_make --pkg ars548_msg
-
+```
 catkin_make -j8
-
-
+```
+```
 source devel/setup.bash
-
+```
 roslaunch ars548_process ars548_process.launch
-
+```
 rosbag record -a
-
+```
 rosbag play xxx.bag -r 10
-
+```
 rostopic echo -b xxx.bag -p /xxx >xxx.cxv
 ```
 -----------------------------

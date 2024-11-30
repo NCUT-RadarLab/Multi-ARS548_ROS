@@ -1,0 +1,13 @@
+<launch>
+    <!-- <arg name="ars548_demo" default="123"/> -->
+
+    <node pkg="ars548_process" type="ars548_process_node" name="ars548_process_side_node" output="screen">
+    </node>
+    <!-- <node pkg="ars548_process" type="test_radar_input_node" name="test_radar_side_input_node"> -->
+    <!-- </node> -->
+    <node pkg="ars548_process" type="info_convert_node" name="info_convert_side_node">
+    </node>
+    <node pkg="rviz" type="rviz" name="rviz_side" output="screen" args="-d $(find ars548_process)/launch/ars548_side_display.rviz">
+    </node>
+
+</launch>

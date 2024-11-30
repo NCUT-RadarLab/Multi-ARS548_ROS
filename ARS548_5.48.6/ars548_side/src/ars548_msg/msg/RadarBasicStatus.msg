@@ -1,0 +1,40 @@
+std_msgs/Header header
+
+float32 Longitudinal
+float32 Lateral
+float32 Vertical
+float32 Yaw
+float32 Pitch
+uint8 PlugOrientation
+float32 Length
+float32 Width
+float32 Height
+float32 Wheelbase
+uint16 MaximumDistance
+uint8 FrequencySlot
+uint8 CycleTime
+uint8 TimeSlot
+uint8 HCC
+uint8 Powersave_Standstill
+uint32 SensorIPAddress_0
+uint32 SensorIPAddress_1
+uint8 Configuration_counter
+uint8 Status_LongitudinalVelocity
+uint8 Status_LongitudinalAcceleration
+uint8 Status_LateralAcceleration
+uint8 Status_YawRate
+uint8 Status_SteeringAngle
+uint8 Status_DrivingDirection
+uint8 Status_CharacteristicSpeed
+uint8 Status_Radar
+
+uint32 Timestamp_Nanoseconds
+uint32 Timestamp_Seconds
+uint8 Timestamp_SyncStatus
+uint8 SWVersion_Major
+uint8 SWVersion_Minor
+uint8 SWVersion_Patch
+
+uint8 Status_VoltageStatus
+uint8 Status_TemperatureStatus
+uint8 Status_BlockageStatus

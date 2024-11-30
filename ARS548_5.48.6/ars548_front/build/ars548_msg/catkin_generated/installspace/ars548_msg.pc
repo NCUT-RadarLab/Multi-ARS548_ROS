@@ -1,0 +1,8 @@
+prefix=/home/somebo/548_new_demo/ars548_front/install
+
+Name: ars548_msg
+Description: Description of ars548_msg
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs message_runtime

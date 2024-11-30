@@ -1,0 +1,15 @@
+<launch>
+    <!-- <arg name="ars548_demo" default="123"/> -->
+
+    <node pkg="ars548_process" type="ars548_process_node" name="ars548_process_node" output="screen">
+    </node>
+    <node pkg="ars548_process" type="info_convert_front_node" name="info_convert_front_node">
+    </node>
+    <node pkg="ars548_process" type="info_convert_side_node" name="info_convert_side_node">
+    </node>
+    <node pkg="rviz" type="rviz" name="rviz_front" output="screen" args="-d $(find ars548_process)/launch/ars548_front_display.rviz">
+    </node>
+    <node pkg="rviz" type="rviz" name="rviz_side" output="screen" args="-d $(find ars548_process)/launch/ars548_side_display.rviz">
+    </node>
+
+</launch>

@@ -1,0 +1,2 @@
+ars548_msg:ars548_process
+-DCATKIN_DEVEL_PREFIX=/home/somebo/548_new_demo/ars548_front/devel -DCMAKE_INSTALL_PREFIX=/home/somebo/548_new_demo/ars548_front/install -G Unix Makefiles

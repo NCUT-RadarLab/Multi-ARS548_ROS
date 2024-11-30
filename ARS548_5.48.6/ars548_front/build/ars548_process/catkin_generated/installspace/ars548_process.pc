@@ -1,0 +1,8 @@
+prefix=/home/somebo/548_new_demo/ars548_front/install
+
+Name: ars548_process
+Description: Description of ars548_process
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs ars548_msg sensor_msgs geometry_msgs

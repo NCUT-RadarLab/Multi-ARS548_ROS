@@ -12,6 +12,7 @@ int Radar_Side  = 1895894282;
 
 5. turn off wifi
 
+**命令：**
 
 rm build/ devel/ -fr
 

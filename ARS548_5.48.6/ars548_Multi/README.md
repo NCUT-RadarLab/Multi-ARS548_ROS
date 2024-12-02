@@ -52,6 +52,15 @@ rostopic echo -b xxx.bag -p /xxx >xxx.cxv
 1. 在ars548_process_node中的De_publish和Ob_publis中增加else if判断ip（此程序因为只有两个雷达，所以只有if else if）
 2. 增加info_xxx_covert_node节点（xxx为雷达区分命名，本工程区分为front和side两个雷达）
 3. 记得别忘记修改话题发布订阅结构，具体类比双雷达话题结构即可。
+4. 别忘记修改ARS548_5.48.6/ars548_Multi/src/ars548_process/CMakeLists.txt
+    路径下的CMakeLists.txt文件，需要增加你的info_xxx_covert_node
+   例如：
+```
+add_executable(info_convert_front_node src/info_convert_front_node.cpp)
+target_link_libraries(info_convert_front_node
+  ${catkin_LIBRARIES}
+)
+```
 -----------------------------
 # **本工程的驱动结构：**
 ## 节点1：

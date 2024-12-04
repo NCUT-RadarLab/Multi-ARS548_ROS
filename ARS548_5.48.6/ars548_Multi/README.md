@@ -63,14 +63,9 @@ target_link_libraries(info_convert_front_node
   ${catkin_LIBRARIES}
 )
 ```
-
+---
 ## **本工程的驱动结构：**
 ### 节点1：`ars548_process_node`
-
------------------------------
-# **本工程的驱动结构：**
-## 节点1：`ars548_process_node`
-
 1. 读取原始数据
 2. 处理原始数据
 3. 判断IP区分数据流

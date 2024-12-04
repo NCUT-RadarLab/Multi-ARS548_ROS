@@ -54,9 +54,24 @@ python3 /home/jetson/548_new/ars548_both/scripts/bag2csv_path.py /home/jetson/54
 1. 在ars548_process_node中的De_publish和Ob_publis中增加else if判断ip（此程序因为只有两个雷达，所以只有if else if）
 2. 增加info_xxx_covert_node节点（xxx为雷达区分命名，本工程区分为front和side两个雷达）
 3. 记得别忘记修改话题发布订阅结构，具体类比双雷达话题结构即可。
+4. 别忘记修改ARS548_5.48.6/ars548_Multi/src/ars548_process/CMakeLists.txt
+    路径下的CMakeLists.txt文件，需要增加你的info_xxx_covert_node
+   例如：
+```
+add_executable(info_convert_front_node src/info_convert_front_node.cpp)
+target_link_libraries(info_convert_front_node
+  ${catkin_LIBRARIES}
+)
+```
 
 ## **本工程的驱动结构：**
 ### 节点1：`ars548_process_node`
+
+-----------------------------
+# **本工程的驱动结构：**
+## 节点1：
+**ars548_process_node.cpp**
+
 1. 读取原始数据
 2. 处理原始数据
 3. 判断IP区分数据流
@@ -83,8 +98,11 @@ python3 /home/jetson/548_new/ars548_both/scripts/bag2csv_path.py /home/jetson/54
 **4. 这两串数字是怎么来的？**
 
 //前视雷达10.13.1.112 为 1879117066
+
 //侧视雷达10.13.1.113 为 1895894282
+
 int Radar_Front = 1879117066;
+
 int Radar_Side  = 1895894282;
 
 答：1879117066和1895894282分别对应着IP为10.13.1.112和10.13.1.113点雷达。

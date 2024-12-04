@@ -18,7 +18,7 @@ source devel/setup.bash
 # 启动launch
 roslaunch ars548_process ars548_process.launch
 # 记录所有话题
-
+rosbag record -a
 # 播放记录的rosbag
 rosbag play xxx.bag -r 10
 # 显示记录的rosbag的topic

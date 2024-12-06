@@ -14,13 +14,14 @@ if len(sys.argv) < 2:
 bag_file = sys.argv[1]
 
 # 定义要读取的 topics
-topics_to_check = ["/ars548_process/point_front_cloud2"]
+topics_to_check = ["/ars548_process/point_front_cloud2", "/ars548_process/point_side_cloud2"]
 
 # 输出目录路径
 output_dir = "/home/jetson/548_new/ars548_both/data/csv"
 
 # 确保输出目录存在
 os.makedirs(output_dir, exist_ok=True)
+
 
 def process_bag_file(bag_file):
     # 检查文件是否存在
@@ -31,11 +32,11 @@ def process_bag_file(bag_file):
     # 从 bag 文件名生成基础名称
     bag_base_name = os.path.splitext(os.path.basename(bag_file))[0]
 
-    # 用于存储数据
-    all_data = []
+    # 用于存储不同话题的数据
+    all_data = {topic: [] for topic in topics_to_check}
 
     # 存储时间戳和对应的 frame_id
-    timestamp_to_frame_id = {}
+    timestamp_to_frame_id = {topic: {} for topic in topics_to_check}
 
     # 读取当前 bag 文件
     with rosbag.Bag(bag_file, "r") as bag:
@@ -46,11 +47,11 @@ def process_bag_file(bag_file):
             # 处理 PointCloud2 数据
             if msg._type == "sensor_msgs/PointCloud2" and topic in topics_to_check:
                 # 如果时间戳未出现过，分配新的 frame_id
-                if timestamp not in timestamp_to_frame_id:
-                    timestamp_to_frame_id[timestamp] = len(timestamp_to_frame_id)
+                if timestamp not in timestamp_to_frame_id[topic]:
+                    timestamp_to_frame_id[topic][timestamp] = len(timestamp_to_frame_id[topic])
 
                 # 获取对应时间戳的 frame_id
-                frame_id = timestamp_to_frame_id[timestamp]
+                frame_id = timestamp_to_frame_id[topic][timestamp]
 
                 # 获取字段名称
                 fields = [field.name for field in msg.fields]
@@ -58,29 +59,40 @@ def process_bag_file(bag_file):
                 # 提取点云数据
                 pc_gen = pc2.read_points(msg, field_names=fields, skip_nans=True)
                 for point in pc_gen:
-                    # 将每个点的帧数据存入 all_data
-                    all_data.append((frame_id, timestamp) + tuple(point))
+                    # 将每个点的帧数据存入 all_data 中相应的话题
+                    all_data[topic].append((frame_id, timestamp) + tuple(point))
 
-    # 保存数据到 CSV 文件
-    if all_data:
-        # 添加列名
-        columns = ["frame_id", "timestamp"] + fields
-        output_csv = os.path.join(output_dir, f"{bag_base_name}_{topics_to_check[0].split('/')[-1]}.csv")
-        
-        # 转换为 DataFrame
-        df = pd.DataFrame(all_data, columns=columns)
-        
-        # 按时间戳排序（时间戳字段已经是浮动类型）
-        df = df.sort_values(by='timestamp').reset_index(drop=True)
+    # 对每个话题进行数据保存
+    for topic in topics_to_check:
+        if all_data[topic]:
+            # 添加列名
+            columns = ["frame_id", "timestamp"] + fields
+            output_csv = os.path.join(output_dir, f"{bag_base_name}_{topic.split('/')[-1]}.csv")
 
-        # 重新为 frame_id 按时间戳排序，确保相同时间戳取相同的序号
-        df['frame_id'] = df['timestamp'].rank(method='dense', ascending=True).astype(int)
+            # 转换为 DataFrame
+            df = pd.DataFrame(all_data[topic], columns=columns)
 
-        # 保存到 CSV
-        df.to_csv(output_csv, index=False)
-        print(f"PointCloud2 data for {topic} has been saved to {output_csv}")
+            # 按时间戳排序（时间戳字段已经是浮动类型）
+            df = df.sort_values(by='timestamp').reset_index(drop=True)
+
+            # 重新为 frame_id 按时间戳排序，确保相同时间戳取相同的序号
+            df['frame_id'] = df['timestamp'].rank(method='dense', ascending=True).astype(int)
+
+            # 保存到 CSV
+            df.to_csv(output_csv, index=False)
+            print(f"PointCloud2 data for {topic} has been saved to {output_csv}")
+        else:
+            print(f"No valid data found for the topic {topic}.")
+
+    # Debugging step: Check if no data was found for both topics
+    if not any(all_data.values()):
+        print("No valid data found for any topic.")
     else:
-        print("No valid data found for the specified topic.")
+        print("Data was found for the following topics:")
+        for topic in topics_to_check:
+            if all_data[topic]:
+                print(f"- {topic}")
+
 
 # 调用处理函数
 process_bag_file(bag_file)

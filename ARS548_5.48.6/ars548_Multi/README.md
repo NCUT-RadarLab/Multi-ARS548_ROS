@@ -25,6 +25,7 @@ rosbag play xxx.bag -r 10
 rostopic echo -b xxx.bag -p /xxx >xxx.cxv
 ```
 ------------------------------
+~~~
 # **边缘计算设备上执行雷达驱动和数据记录命令，均为绝对路径**
 ```bash 
 # 绝度路径加载 #绝对路径运行launch
@@ -45,6 +46,7 @@ python3 /home/jetson/548_new/ars548_both/scripts/bag2csv.py
 # 脚本选择指定bag路径转换为csv
 python3 /home/jetson/548_new/ars548_both/scripts/bag2csv_path.py /home/jetson/548_new/ars548_both/data/2024-12-04-03-47-53.bag 
 ```
+~~~
 -----------------------------
 ## **多雷达驱动修改思路:**
 1. 明确话题节点结构

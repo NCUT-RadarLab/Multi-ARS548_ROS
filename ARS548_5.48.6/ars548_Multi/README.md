@@ -25,28 +25,25 @@ rosbag play xxx.bag -r 10
 rostopic echo -b xxx.bag -p /xxx >xxx.cxv
 ```
 ------------------------------
-~~~
-# **边缘计算设备上执行雷达驱动和数据记录命令，均为绝对路径**
-```bash 
-# 绝度路径加载 #绝对路径运行launch
-source /home/jetson/548_new/ars548_both/devel/setup.bash   
-roslaunch /home/jetson/548_new/ars548_both/src/ars548_process/launch/ars548_process.launch
-```
-```bash 
-# rosbag记录，且只记录/ars548_process/point_front_cloud2 /ars548_process/point_side_cloud2这两个话题，减少空间占用
-rosbag record -O /home/jetson/548_new/ars548_both/data/$(date +"%Y-%m-%d-%H-%M-%S").bag /ars548_process/point_front_cloud2 /ars548_process/point_side_cloud2
-# or
-# 若想记录全部话题，则：
-rosbag record -a
-```
-```bash
-# 该脚本为将最新的bag转换为csv，减少了路径选择(优先选择此转换脚本)
-python3 /home/jetson/548_new/ars548_both/scripts/bag2csv.py 
-# or
-# 脚本选择指定bag路径转换为csv
-python3 /home/jetson/548_new/ars548_both/scripts/bag2csv_path.py /home/jetson/548_new/ars548_both/data/2024-12-04-03-47-53.bag 
-```
-~~~
+
+~~# **边缘计算设备上执行雷达驱动和数据记录命令，均为绝对路径**~~
+
+~~# 绝度路径加载 #绝对路径运行launch~~
+~~source /home/jetson/548_new/ars548_both/devel/setup.bash~~
+~~roslaunch /home/jetson/548_new/ars548_both/src/ars548_process/launch/ars548_process.launch~~
+
+~~# rosbag记录，且只记录/ars548_process/point_front_cloud2 /ars548_process/point_side_cloud2这两个话题，减少空间占用~~
+~~rosbag record -O /home/jetson/548_new/ars548_both/data/$(date +"%Y-%m-%d-%H-%M-%S").bag /ars548_process/point_front_cloud2 /ars548_process/point_side_cloud2~~
+~~# or~~
+~~# 若想记录全部话题，则：~~
+~~rosbag record -a~~
+
+~~# 该脚本为将最新的bag转换为csv，减少了路径选择(优先选择此转换脚本)~~
+~~python3 /home/jetson/548_new/ars548_both/scripts/bag2csv.py~~
+~~# or~~
+~~# 脚本选择指定bag路径转换为csv~~
+~~python3 /home/jetson/548_new/ars548_both/scripts/bag2csv_path.py /home/jetson/548_new/ars548_both/data/2024-12-04-03-47-53.bag~~ 
+
 -----------------------------
 ## **多雷达驱动修改思路:**
 1. 明确话题节点结构
